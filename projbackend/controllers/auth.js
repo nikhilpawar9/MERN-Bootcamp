@@ -43,7 +43,7 @@ exports.signin = (req,res)=>{
             return res.status(400).json({
                 error: "USER email does not exist"
             })
-        };
+        }
 
         if (!user.authenticate(password)) {
             return res.status(401).json({

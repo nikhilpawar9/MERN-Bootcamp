@@ -4,9 +4,8 @@ var router = express.Router();
 const {signout, signup, signin,isSignedIn} = require("../controllers/auth");
 
 router.post("/signin",[
-
-    check("email", "Email is required").isEmail(),
-    check("password", "Password field is required").isLength({ min: 5 }),
+    // check("password", "Password field is required").isLength({ min: 5 }),
+    // check("email", "Email is required").isEmail(),
 ], signin);
 
 router.post("/signup",[
