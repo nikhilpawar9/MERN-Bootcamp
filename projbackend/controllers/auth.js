@@ -1,5 +1,5 @@
 const User = require("../models/user.js");
-const { body, validationResult, check } = require('express-validator');
+const {  validationResult, check } = require('express-validator');
 var jwt = require('jsonwebtoken');
 var expressJwt = require('express-jwt');
 
@@ -58,11 +58,11 @@ exports.signin = (req,res)=>{
 
         //send response to front end
         const{_id, name, email, role}=user;
-        return res.json({token, user:{_id, name, email , role}})
+        return res.json({token, user:{_id, name, email , role}});
 
-    })
+    });
 
-}
+};
 
 exports.signout = (req, res)=> {
     res.clearCookie("token");
@@ -80,7 +80,7 @@ exports.isSignedIn = expressJwt({
 //custom middleware
 exports.isAuthenticated = (req,res, next) => {
     let checker = req.profile && req.auth && req.profile._id == req.auth._id;
-    if(!check){
+    if(!checker){
         return res.status(403).json({
             error: "ACCESS DENIED"
         });
@@ -95,4 +95,4 @@ exports.isAdmin = (req,res, next) => {
         });
     }
     next();
-}
+};

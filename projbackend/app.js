@@ -10,7 +10,7 @@ const cors = require("cors");
 //My Routes
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
-const categoryRoutes = require("./routes/category.js");
+const categoryRoutes = require("./routes/category");
 
 //DB connection
 mongoose.connect(process.env.DATABASE, {useNewUrlParser: true, useUnifiedTopology: true,
