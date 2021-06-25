@@ -1,4 +1,4 @@
-const Product = requier("../models/product")
+const Product = require("../models/product")
 const formidable = require("formidable")
 const _ = require("lodash")
 const fs = require("fs")
@@ -15,19 +15,31 @@ exports.getProductById = (req,res,next, id) =>{
         req.product = product;
         next();
     })
-}
+};
 
 exports.createProduct = (req, res)=>{
-    let from  = new formidable.findById();
+    let form  = new formidable.IncomingForm();
     formidable.keepExtensions = true;
 
-    form.parse(req, (err, feilds, file) =>{
+    form.parse(req, (err, fields, file) =>{
         if (err) {
             return res.status(400).json({
                 eroor: "Problem with image"
             })
         }
-        //TODO restrictions on fields
+        //destructure the fields
+        const {name, description,price, category, stock,} = fields;
+        
+        if (!name ||
+            !description ||
+            !price||
+            !category ||
+            !stock) {
+            return res.status(400).json({
+                error: "Pleaase include all fields"
+            })
+        }
+        
         let product = new Product(fields)
 
         //handle file here 
@@ -40,6 +52,7 @@ exports.createProduct = (req, res)=>{
             product.photo.data = fs.readFileSync(file.photo.path);
             product.photo.contetType = file.photo.type;
         };
+        //console.log(product)
 
         //save to DB
         product.save((err,product) => {
@@ -52,4 +65,16 @@ exports.createProduct = (req, res)=>{
 
         })
     });
+};
+
+exports.getProduct = (req,res)=>{
+    req.product.photo = undefined;
+    return res.json(req.product)
+};
+
+exports.photo = (req,res, next)=>{
+    if (req.product.photo.data) {
+        res.set("Content-Type", req.product.photo.contetType)
+        return res.send(req.product.photo.data);
+    }
 }
