@@ -1,11 +1,11 @@
-import React, { useSate } from "react";
+import React, { useState } from "react";
 import Base from "../core/Base";
 import { Link } from "react-router-dom";
 import { signup } from "../auth/helper";
 
 const Signup = () => {
 
-  const [values, setValues] =useSate({
+  const [values, setValues] =useState({
     name:"",
     email:"",
     password:"",
@@ -53,24 +53,24 @@ const Signup = () => {
               <label htmlFor="" className="text-light">
                 Name
               </label>
-              <input className="form-control" onChange={handleChange("name")} type="text" />
+              <input className="form-control" onChange={handleChange("name")} type="text" value={name} />
             </div>
               
             <div className="form-group">
               <label htmlFor="" className="text-light">
                 Email
               </label>
-              <input className="form-control" onChange={handleChange("email")} type="email" />
+              <input className="form-control" onChange={handleChange("email")} type="email" value={email} />
             </div>
 
             <div className="form-group">
               <label htmlFor="" className="text-light">
                 password 
               </label>
-              <input className="form-control" onChange={handleChange("password")} type="password" />
+              <input className="form-control" onChange={handleChange("password")} type="password" value={password } />
             </div>
 
-            <button className="btn btn-success btn-block">Submit</button>
+            <button className="btn btn-success btn-block my-2" onClick={onSubmit}>Submit</button>
 
           </form>
         </div>
@@ -78,9 +78,40 @@ const Signup = () => {
     );
   };
 
+  const successMessage = ()=>{
+    return (
+    <div className="row">
+    <div className="col-md-6 offset-sm-3 text-left">
+    <div className="alert alert-success"
+    style={{display:success? "": "none"}}
+    >
+      New account was created successfully. Please <Link to="/signin">login here</Link>
+    </div>
+    </div>
+    </div>
+    )
+  };
+
+  const errorMessage = ()=>{
+    return (
+    <div className="row">
+    <div className="col-md-6 offset-sm-3 text-left">
+    <div className="alert alert-danger"
+    style={{display:error? "": "none"}}
+    >
+      {error}
+    </div>
+    </div>
+    </div>
+    )
+  };
+
   return (
     <Base title=" Sign Up Page" description="A page for signing up">
+      {successMessage()}
+      {errorMessage()}
       {signUpForm()}
+      <p className="text-white text-center">{JSON.stringify(values)}</p>
     </Base>
   );
 };
