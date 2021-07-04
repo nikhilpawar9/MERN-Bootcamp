@@ -15,14 +15,32 @@ const Signup = () => {
   
   const {name, email, password, error, success} = values
 
+
+  //modern function
   const handleChange = name=> event => {
     setValues({...values, error: false, [name]: event.target.value})
   }
+
 
   const onSubmit = event => {
     event.preventDefault()
     setValues({...values, error: false})
     signup({name, email, password})
+    .then(data=>{
+      if (data.error) {
+        setValues({...values,error:data.error, success:false})
+      }else{
+        setValues({
+          ...values,
+          name:"",
+          email:"",
+          password:"",
+          error:"",
+          success:true
+        })
+      }
+    })
+    .catch()
   }
 
   const signUpForm = () => {
