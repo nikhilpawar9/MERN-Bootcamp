@@ -1,4 +1,4 @@
-import React, { useSate } from "react";
+import React, { useState } from "react";
 import Base from "../core/Base";
 import { Link, Redirect } from "react-router-dom";
 
@@ -6,9 +6,9 @@ import {} from "../auth/helper";
 import { signin, authenticate, isAuthenticated } from "../auth/helper";
 
 const Signin = () => {
-  const [values, setValues] = useSate({
-    email: "",
-    password: "",
+  const [values, setValues] = useState({
+    email: "d@hitesh.com",
+    password: "123456",
     error: "",
     loading: false,
     didRedirect: false,
@@ -41,19 +41,27 @@ const Signin = () => {
     .catch(console.log("sigin request failed"))
   
   }
-  const successMessage = () => {
-    return (
-      <div className="row">
-        <div className="col-md-6 offset-sm-3 text-left">
-          <div
-            className="alert alert-success"
-            style={{ display: success ? "" : "none" }}
-          >
-            New account was created successfully. Please{" "}
-            <Link to="/signin">login here</Link>
-          </div>
+
+  const performRedirect= ()=>{
+    //TODO do a redirect here
+    if (didRedirect) {
+      if (user && user.role === 1) {
+        return <p>redirect to admin </p>
+      }else{
+        return <p>redirect to user dashboard</p>
+      }
+    }
+    if (isAuthenticated()) {
+      return <Redirect to="/"/>
+    }
+  }
+  const loadingMessage = () => {
+    return(
+      loading && (
+        <div className="alert alert-info">
+          <h2>Loading</h2>
         </div>
-      </div>
+      )
     );
   };
 
@@ -100,7 +108,11 @@ const Signin = () => {
 
   return (
     <Base title=" Sign In Page" description="A page for signing In">
+      {loadingMessage()}
+      {errorMessage()}
       {signInForm()}
+      {performRedirect()}
+      <p className="text-white text-center">{JSON.stringify(values)}</p>
     </Base>
   );
 };
