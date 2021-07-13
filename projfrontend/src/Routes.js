@@ -7,11 +7,11 @@ import Signup from './user/Signup'
 const Routes =() => {
   return (
     <BrowserRouter>
-    <switch>
+    <Switch>
       <Route path="/" exact component = {Home}/>
       <Route path="/signup" exact component = {Signup}/>
       <Route path="/signin" exact component = {Signin}/>
-    </switch>
+    </Switch>
     </BrowserRouter>
   )
 }

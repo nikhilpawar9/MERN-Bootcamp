@@ -16,7 +16,7 @@ export const signup = (user) => {
     .catch((err) => console.log(err));
 };
 
-export const signin = (user) => {
+export const signin = user => {
   return fetch(`${API}/signin`, {
     method: "POST",
     headers: {
@@ -47,14 +47,14 @@ export const signout = (next) => {
       method: "GET",
     })
       .then((response) => {
-        "signout success";
+        console.log("signout success");
       })
       .catch((err) => console.log(err));
   }
 };
 
 export const isAuthenticated = () => {
-  if (typeof window !== "undefined") {
+  if (typeof window == "undefined") {
     return false;
   }
   if (localStorage.getItem("jwt")) {

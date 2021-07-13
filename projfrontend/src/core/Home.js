@@ -4,7 +4,7 @@ import {API} from "../backend"
 import Base from './Base';
 
 export default function Home() {
-    console.log("APP IS" , API);
+    // console.log("APP IS" , API);
     return (
         <Base title="Home Page" description="Welcome to Home page">
             <div className="row">
