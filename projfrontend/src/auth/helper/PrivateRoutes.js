@@ -4,7 +4,6 @@ import { isAuthenticated } from "./index";
 
 
 const PrivateRoute = ({ component : Component, ...rest })=> {
-    let auth = useAuth();
     return (
       <Route
         {...rest}
