@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import Base from '../core/Base'
 import { Link } from "react-router-dom";
-import {getCategories} from "./helper/adminapicall"
+import {createaProduct, getCategories} from "./helper/adminapicall"
 import { isAuthenticated } from '../auth/helper';
 
 
@@ -38,7 +38,6 @@ const  AddProduct = () => {
         else{
           setValues({...values, categories:data, formData: new FormData()})
           // console.log("CATE",categories);
-          //TODO
         }
       })
     }
@@ -47,17 +46,45 @@ const  AddProduct = () => {
       preload();
     }, []);
 
-    const onSubmit = () => {
-        
+    const onSubmit = (event) => {
+      event.preventDefault();
+      setValues({...values, error:"", loading:true})
+      createaProduct(user._id, token, formData).then(data =>{
+        if (data.error) {
+          setValues({...values, error: data.error})
+        }else{
+          setValues({
+            ...values,
+            name:"",
+            description:"",
+            price:"",
+            photo:"",
+            stock:"",
+            loading:false,
+            createdProduct: data.name,
+          })
+        }
+      })
     };
     const handleChange = name => event  => {
-      const values = name ==="photo" ? event.target.file[0] :
+      const value = name ==="photo" ? event.target.files[0] :
       event.target.value
       formData.set(name, value)
       setValues({...values, [name]:value})
     };
 
-
+    const successMessage = () =>(
+      <div className="alert alert-success mt-3"
+      style={{display: createdProduct ? "" : "none"}}>
+        <h4>{createdProduct} created succesfully</h4>
+      </div>
+    )
+    const errorMessage = () =>(
+      <div className="alert alert-danger mt-3"
+      style={{display: error ? "" : "none"}}>
+        <h4>{error} Product was not created</h4>
+      </div>
+    )
 
     const createProductForm = () => (
         <form >
@@ -115,7 +142,7 @@ const  AddProduct = () => {
           </div>
           <div className="form-group mb-3">
             <input
-              onChange={handleChange("quantity")}
+              onChange={handleChange("stock")}
               type="number"
               className="form-control"
               placeholder="Quantity"
@@ -140,6 +167,8 @@ const  AddProduct = () => {
 
         <div className="row bg-dark text-white rounded">
             <div className="col-md-8 offset-md-2">
+            {successMessage()}
+            {errorMessage()}
                 {createProductForm()}
             </div>
         </div>
@@ -151,3 +180,8 @@ const  AddProduct = () => {
 }
 
 export default AddProduct
+
+
+//TODO 
+// add loading for 2 sec after product is created and then
+//redirect to admin dasboard 
