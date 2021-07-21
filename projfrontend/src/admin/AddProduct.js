@@ -1,25 +1,60 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Base from '../core/Base'
 import { Link } from "react-router-dom";
+import {getCategories} from "./helper/adminapicall"
+import { isAuthenticated } from '../auth/helper';
 
 
-function AddProduct() {
 
+
+
+const  AddProduct = () => {
+
+    const {user, token} = isAuthenticated();
 
     const [values, setValues] = useState({
         name:"",
         description:"",
         price:"",
-        stock:""
+        stock:"",
+        photo:"",
+        categories:[],
+        category:"",
+        loading: false,
+        error:"",
+        createdProduct: "",
+        getaRedirect:false,
+        formData:""
     })
 
-    const {name, description, price, stock } = values
+    const {name, description, price, stock, categories, category, loading, error, createdProduct, getaRedirect, formData } = values;
+
+    const preload = () =>{
+      getCategories().then(data =>{
+        // console.log(data);
+        if (data.error) {
+          setValues({...values, error:data.error})
+        }
+        else{
+          setValues({...values, categories:data, formData: new FormData()})
+          // console.log("CATE",categories);
+          //TODO
+        }
+      })
+    }
+
+    useEffect(() => {
+      preload();
+    }, []);
 
     const onSubmit = () => {
         
     };
     const handleChange = name => event  => {
-
+      const values = name ==="photo" ? event.target.file[0] :
+      event.target.value
+      formData.set(name, value)
+      setValues({...values, [name]:value})
     };
 
 
@@ -72,8 +107,10 @@ function AddProduct() {
               placeholder="Category"
             >
               <option>Select</option>
-              <option value="a">a</option>
-              <option value="b">b</option>
+              {categories && 
+              categories.map((cate, index)=>(
+                <option key={index} value={cate._id}>{cate.name}</option>
+              ))}
             </select>
           </div>
           <div className="form-group mb-3">
