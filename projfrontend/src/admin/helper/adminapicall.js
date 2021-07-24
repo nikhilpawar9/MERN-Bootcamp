@@ -34,7 +34,7 @@ export const getCategories = ()=>{
 
 //PRODUCT CALL
 
-//careate
+//create
 export const createaProduct = (userId, token, product)=>{
   return fetch(`${API}/product/create/${userId}`,{
     method: "POST",
