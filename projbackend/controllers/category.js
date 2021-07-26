@@ -40,7 +40,11 @@ exports.getAllCategory = (req, res) => {
 };
 
 exports.updateCategory = (req, res) => {
+
   const category = req.category;
+  console.log("________________________________________")
+  console.log(" CATEGORY RQUEST____ :  ", req.category)
+  console.log("CATEGORY NAME_____ ", req.category.name)
   category.name = req.body.name;
 
   category.save((err, updatedCategory) => {

@@ -73,6 +73,7 @@ const ManageProducts =() => {
           </div>
         </div>
       </Base>
+    
     )
 }
 

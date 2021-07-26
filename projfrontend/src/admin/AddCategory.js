@@ -33,6 +33,7 @@ const AddCategory = () => {
     createCategory(user._id, token, {name}).then(data => {
       if (data.error) {
         setError(true);
+        
       } else {
         setError("");
         setSuccess(true);

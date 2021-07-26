@@ -46,7 +46,6 @@ const  UpdateProduct = ({match}) => {
               formData: new FormData(),
               
           })
-          preloadCategories();
 
           
         }
@@ -73,6 +72,7 @@ const  UpdateProduct = ({match}) => {
     const onSubmit = (event) => {
       event.preventDefault();
       setValues({...values, error:"", loading:true})
+      console.log(" formData is : ", formData)
 
       updateProduct(match.params.productId, user._id, token, formData).then(data =>{
         if (data.error) {
@@ -94,7 +94,7 @@ const  UpdateProduct = ({match}) => {
     const handleChange = name => event  => {
       const value = name ==="photo" ? event.target.files[0] :
       event.target.value
-      formData.set(name, value)
+      formData.set('name', value)
       setValues({...values, [name]:value})
     };
 
@@ -111,7 +111,7 @@ const  UpdateProduct = ({match}) => {
       </div>
     )
 
-    const createProductForm = () => (
+    const updateProductForm = () => (
         <form >
           <span>Post photo</span>
           <div className="form-group mb-3">
@@ -182,10 +182,10 @@ const  UpdateProduct = ({match}) => {
       );
 
     return (
-        <Base title="Add a product here"
-        description="Welcome to Product creation"
+        <Base title="Update product here"
+        description="Welcome to Product updation"
         className="container bg-info p-4">
-        <h1 className="text-white">Add products</h1>
+        <h1 className="text-white">Update products</h1>
 
         <Link to="/admin/dashboard" className="btn btn-md btn-dark mb-3">
             Admin Home </Link>
@@ -194,7 +194,7 @@ const  UpdateProduct = ({match}) => {
             <div className="col-md-8 offset-md-2">
             {successMessage()}
             {errorMessage()}
-                {createProductForm()}
+            {updateProductForm()}
             </div>
         </div>
 
