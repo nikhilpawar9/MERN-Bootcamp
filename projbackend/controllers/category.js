@@ -39,18 +39,38 @@ exports.getAllCategory = (req, res) => {
   });
 };
 
+// exports.updateCategory = (req, res) => {
+
+//   const category = req.category;
+//   // console.log("________________________________________")
+//   // console.log(" CATEGORY RQUEST____ :  ", req.category)
+//   console.log("Category_____ ", req.body.name)
+//   console.log("BODY NAME_____ ", req.body.name)
+
+
+
+//   category.name = req.body.name;
+//   console.log("Category name after_____ ",category )
+
+
+//   category.save((err, updatedCategory) => {
+//     if (err) {
+//       return res.status(400).json({
+//         error: "Failed to update category"
+//       });
+//     }
+//     res.json(updatedCategory);
+//   });
+// };
+
 exports.updateCategory = (req, res) => {
-
   const category = req.category;
-  console.log("________________________________________")
-  console.log(" CATEGORY RQUEST____ :  ", req.category)
-  console.log("CATEGORY NAME_____ ", req.category.name)
+  // console.log(req.body.name);
   category.name = req.body.name;
-
   category.save((err, updatedCategory) => {
     if (err) {
       return res.status(400).json({
-        error: "Failed to update category"
+        error: "Failed to update category",
       });
     }
     res.json(updatedCategory);

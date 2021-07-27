@@ -10,31 +10,28 @@ import { isAuthenticated } from '../auth/helper';
 const  UpdateCategory = ({match}) => {
 
     const {user, token} = isAuthenticated();
+    const [name, setName] = useState("");
+    const [err, setErr] = useState("");
+    const [upcat, setUpcat] = useState("");
 
-    const [values, setValues] = useState({
-        name:"",
-        loading: false,
-        error:"",
-        updatedCategory: "",
-        getaRedirect:false,
-        formData:""
-    })
 
-    const {name, loading, error, updatedCategory, getaRedirect, formData } = values;
 
     const preload = (categoryId) =>{
         getCategory(categoryId).then(data =>{
+          console.log(data.name)
         if (data.error) {
-          setValues({...values, error:data.error})
+         setErr(data.error)
         }
         else{
-          setValues({
-              ...values,
-              name: data.name,
-              formData: new FormData(),
+          setName(data.name)
+          setErr("")
+          // setValues({
+          //     ...values,
+          //     name: data.name,
+          //     // formData: new FormData(),
               
-          })
-          console.log("preload formData", formData)
+          // })
+          // console.log("preload formData", formData)
 
           
         }
@@ -49,50 +46,34 @@ const  UpdateCategory = ({match}) => {
 
     const onSubmit = (event) => {
       event.preventDefault();
-      setValues({...values, error:"", loading:true})
-      console.log("onsubmit NAME : ", name)
-      console.log("onsubmit formData : ",formData)
+      // console.log("onsubmit formData : ",formData)
       // console.log(" category ID : ",match.params.categoryId)
     
-      updateCategory(match.params.categoryId, user._id, token, formData).then(data =>{
+      updateCategory(match.params.categoryId, user._id, token, {name}).then(data => {
         if (data.error) {
-        console.log(" ERROR")
-        // console.log(" data is : ", data)
-
-          setValues({...values, error: data.error})
-          
+        setErr(data.error)
         }else{
-        console.log("NO ERROR")
-          setValues({
-            ...values,
-            name:"",
-            loading:false,
-            updatedCategory: data.name,
-          })
+          setName(data.name)
+          setErr("")
+          setUpcat(data.name)
         }
       })
     };
+
     const handleChange = event  => {
-      const value = event.target.value
-      console.log("handleChange  value: ",value)
-
-      formData.set("name", value)
-      console.log("handleChange formData : ",formData)
-
-      setValues({...values, name:value})
-
+      setName(event.target.value)
     };
 
-    const successMessage = () =>(
+   const successMessage = () =>(
       <div className="alert alert-success mt-3"
-      style={{display: updatedCategory ? "" : "none"}}>
-        <h4>{updatedCategory} updated succesfully</h4>
+      style={{display: upcat ? "" : "none"}}>
+        <h4>{upcat} updated succesfully</h4>
       </div>
-    )
+    ) 
     const errorMessage = () =>(
       <div className="alert alert-danger mt-3"
-      style={{display: error ? "" : "none"}}>
-        <h4>{error} | Product was not updated</h4>
+      style={{display: err ? "" : "none"}}>
+        <h4>{err} | Product was not updated</h4>
       </div>
     )
 
@@ -101,8 +82,7 @@ const  UpdateCategory = ({match}) => {
 
           <div className="form-group mb-3">
             <input
-              onChange={handleChange}
-              name='name'
+              onChange={(e) => handleChange(e)}
               className="form-control"
               placeholder="Name"
               value={name}
@@ -126,8 +106,8 @@ const  UpdateCategory = ({match}) => {
 
         <div className="row bg-dark text-white rounded">
             <div className="col-md-8 offset-md-2">
-            {successMessage()}
-            {errorMessage()}
+              {successMessage()}
+              {errorMessage()}
             {updateCategoryForm()}
             </div>
         </div>

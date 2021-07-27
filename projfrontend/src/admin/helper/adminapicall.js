@@ -43,24 +43,22 @@ export const getCategory = categoryId => {
 
 
 //update category
-export const updateCategory = (categoryId,userId, token, category) => {
 
-  return fetch(`${API}/category/${categoryId}/${userId}`,{
+export const updateCategory = (cateId, userId, token, category) => {
+  return fetch(`${API}/category/${cateId}/${userId}`, {
     method: "PUT",
     headers: {
       Accept: "application/json",
-      Authorization: `Bearer ${token}`
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
-    body: category,
-
+    body: JSON.stringify(category),
   })
-  .then(response => {
-  console.log("inside api call",JSON.stringify(category))
-
-    return response.json();
-  })
-  .catch(err => console.log("error while updating ",err, "CAT is", category));
-}
+    .then(res => {
+      return res.json();
+    })
+    .catch(err => console.log(err));
+};
 
 //delete category
 
