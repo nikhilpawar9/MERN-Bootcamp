@@ -69,7 +69,7 @@ const  UpdateProduct = ({match}) => {
       preload(match.params.productId);
     }, []);
 
-    const onSubmit = (event) => {
+    const onSubmit = event => {
       event.preventDefault();
       setValues({...values, error:"", loading:true})
       console.log(" formData is : ", formData)
