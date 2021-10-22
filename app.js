@@ -7,14 +7,6 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
-//My Routes
-const authRoutes = require("./routes/auth");
-const userRoutes = require("./routes/user");
-const categoryRoutes = require("./routes/category");
-const productRoutes = require("./routes/product");
-const orderRoutes = require("./routes/order");
-const paymentRoutes = require("./routes/payment");
-
 //DB connection
 mongoose
   .connect(process.env.DATABASE, {
@@ -25,6 +17,14 @@ mongoose
   .then(() => {
     console.log("DB CONNECTED");
   });
+//My Routes
+const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/user");
+const categoryRoutes = require("./routes/category");
+const productRoutes = require("./routes/product");
+const orderRoutes = require("./routes/order");
+const paymentRoutes = require("./routes/payment");
+
 
 //Middleware
 app.use(bodyParser.json());
