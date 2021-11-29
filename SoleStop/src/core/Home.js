@@ -26,7 +26,7 @@ export default function Home() {
     <Base title="SoleStop" description="For walks of life">
       <div className="row text-center">
         <h1 className="text-white">Different like you</h1>
-        <div className="row">
+        <div className="row productShowcase">
           {products.map((product, index) => {
             return (
               <div key={index} className="col-4 mb-4">

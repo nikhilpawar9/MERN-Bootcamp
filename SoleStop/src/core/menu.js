@@ -4,7 +4,7 @@ import { isAuthenticated, signout } from '../auth/helper'
 
 const currentTab = (history, path)=>{
     if (history.location.pathname === path) {
-        return {color:"#2ecc72"}
+        return {color:"#45a29e"}
     }
     else{
         return {color:"#ffffff"}
@@ -56,7 +56,7 @@ const  Menu=({history}) => (
             )}
             {isAuthenticated()&&(
                 <li className="nav-item">
-                <span className="nav-link text-warning"
+                <span className="nav-link text-white"
                     onClick={()=>{
                         signout(()=>{
                             history.push("/");

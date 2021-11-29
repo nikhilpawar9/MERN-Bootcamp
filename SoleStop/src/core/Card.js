@@ -56,10 +56,10 @@ const Card = ({ product, addtoCart = true, removeFromCart = false, setreload = f
       <div className="card-body">
         {getARedirect(redirect)}
         <ImageHelper product={product} />
-        <p className="lead brndColor font-weight-normal text-wrap">
+        {/* <p className="lead brndColor font-weight-normal text-wrap">
           {cartDescrption}
-        </p>
-        <p className="btn brndColor rounded  btn-sm px-4">$ {cartPrice}</p>
+        </p> */}
+        <p className="btn brndColor btnbrnd rounded  btn-sm px-4">$ {cartPrice}</p>
         <div className="row">
           <div className="col-12">{showAddToCart(addtoCart)}</div>
           <div className="col-12">{showRemoveFromCart(removeFromCart)}</div>

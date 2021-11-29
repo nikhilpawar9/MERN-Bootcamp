@@ -16,12 +16,30 @@ footer{
   left:0px;
 
 } */
-.brndColor{
-  background-color: #61DBFB;
+.brndColor {
+  background-color: #66fcf1;
 }
-.brndColor-Outline{
+.brndColor-Outline {
   outline-color: cornflowerblue;
 }
-.card{
+.drkColor{
+  background-color: #45a29e;
+}
+.productShowcase {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.btn-outline{
+  color: #000000;
+  border-color: #061312;
+}
+.btnbrnd{
   width: 100%;
 }
+@media only screen and (max-width: 480px) {
+  .col-4 {
+    width: 80%;
+  }
+}
+
