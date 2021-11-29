@@ -35,14 +35,14 @@ const ManageCategories = () => {
 
   return (
     <Base title="Welcome admin" description="Manage products here">
-      <h2 className="mb-4">All products:</h2>
+      <h2 className="mb-4">Product Categories:</h2>
       <Link className="btn btn-info" to={`/admin/dashboard`}>
         <span className="">Admin Home</span>
       </Link>
       <div className="row">
         <div className="col-12">
           <h2 className="text-center text-white my-3">
-            Total {categories.length} products
+            Total {categories.length} Categories
           </h2>
 
           {categories.map((category, index) => {

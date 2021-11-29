@@ -26,7 +26,7 @@ const Card = ({ product, addtoCart = true, removeFromCart = false, setreload = f
       addtoCart && (
         <button
           onClick={addToCart}
-          className="btn btn-block btn-outline-success mt-2 mb-2"
+          className="btn btn-block brndColor mt-2 mb-2"
         >
           Add to Cart
         </button>
@@ -56,10 +56,10 @@ const Card = ({ product, addtoCart = true, removeFromCart = false, setreload = f
       <div className="card-body">
         {getARedirect(redirect)}
         <ImageHelper product={product} />
-        <p className="lead bg-success font-weight-normal text-wrap">
+        <p className="lead brndColor font-weight-normal text-wrap">
           {cartDescrption}
         </p>
-        <p className="btn btn-success rounded  btn-sm px-4">$ {cartPrice}</p>
+        <p className="btn brndColor rounded  btn-sm px-4">$ {cartPrice}</p>
         <div className="row">
           <div className="col-12">{showAddToCart(addtoCart)}</div>
           <div className="col-12">{showRemoveFromCart(removeFromCart)}</div>

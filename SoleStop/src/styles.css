@@ -5,7 +5,8 @@
 }
 
 body {
-  background: #343a40;
+  /* background: #343a40; */
+  background: #212529;
 }
 /* 
 footer{
@@ -15,3 +16,9 @@ footer{
   left:0px;
 
 } */
+.brndColor{
+  background-color: #61DBFB;
+}
+.brndColor-Outline{
+  outline-color: cornflowerblue;
+}
