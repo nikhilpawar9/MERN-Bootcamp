@@ -22,3 +22,6 @@ footer{
 .brndColor-Outline{
   outline-color: cornflowerblue;
 }
+.card{
+  width: 100%;
+}
